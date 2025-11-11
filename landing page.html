@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Café Bliss | Interactive Landing Page</title>
+  <style>
+    /* Reset */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Poppins', sans-serif; line-height:1.6; color:#fff; background:#2e2b2a; scroll-behavior: smooth; }
+
+    /* Container */
+    .container { width:90%; max-width:1100px; margin:auto; position:relative; z-index:2; }
+
+    /* Header */
+    header { background: rgba(0,0,0,0.7); padding:20px 0; position:fixed; top:0; width:100%; z-index:10; }
+    .logo { float:left; font-size:26px; font-weight:bold; }
+    nav ul { list-style:none; float:right; }
+    nav ul li { display:inline-block; margin-left:20px; }
+    nav ul li a { color:#fff; text-decoration:none; font-weight:500; }
+    header::after { content:""; display:table; clear:both; }
+
+    /* Button */
+    .btn { background:#ff7a59; color:white; padding:12px 25px; border-radius:5px; text-decoration:none; font-weight:600; transition:0.3s; cursor:pointer; border:none; }
+    .btn:hover { background:#ff593a; }
+
+    /* Section styling */
+    section { position:relative; text-align:center; padding:80px 20px; background-attachment:fixed; background-size:cover; background-position:center; }
+    section .overlay { position:absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); z-index:1; }
+    section > .container { position:relative; z-index:2; }
+
+    /* Hero */
+    .hero { background-image: url('https://images.unsplash.com/photo-1504754524776-8f4f37790ca0'); height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; }
+    .hero h2 { font-size:50px; margin-bottom:10px; }
+    .hero p { font-size:20px; margin-bottom:20px; }
+
+    /* About */
+    .about { background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836'); }
+
+    /* Menu */
+    .menu { background-image: url('https://images.unsplash.com/photo-1521017432531-fbd92d768814'); }
+    .menu-items { display:flex; flex-wrap:wrap; justify-content:center; margin-top:30px; }
+    .item { background: rgba(255,255,255,0.15); border-radius:8px; padding:20px; margin:10px; width:220px; }
+    .item h3 { color:#ffb67f; }
+
+    /* Specials */
+    .specials { background-image: url('https://images.unsplash.com/photo-1510626176961-4b37d0af1ff6'); }
+    .special-grid { display:flex; flex-wrap:wrap; justify-content:center; }
+    .special { background: rgba(255,255,255,0.15); margin:10px; padding:20px; border-radius:8px; width:240px; }
+
+    /* Reservation */
+    .reservation { background-image: url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461'); }
+    .reservation form { display:flex; flex-direction:column; align-items:center; }
+    .reservation input, .reservation button { padding:10px; margin:10px; width:250px; border:none; border-radius:5px; }
+
+    /* Reviews */
+    .reviews { background-image: url('https://images.unsplash.com/photo-1511920170033-f8396924c348'); }
+    .review-grid { display:flex; flex-wrap:wrap; justify-content:center; }
+    .review { background: rgba(255,255,255,0.15); margin:10px; padding:20px; border-radius:8px; width:240px; }
+
+    /* Location & Hours */
+    .location { background-image: url('https://images.unsplash.com/photo-1533777324565-a040eb52f1c3'); }
+
+    /* Newsletter */
+    .newsletter { background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f'); }
+    .newsletter input { padding:10px; width:250px; border-radius:5px; border:none; margin:10px; }
+
+    /* Footer */
+    footer { background:#111; padding:15px 0; text-align:center; }
+
+    /* Popup Modal */
+    #popup {
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+    .popup-content {
+      background: #fff;
+      color: #333;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      width: 300px;
+      position: relative;
+    }
+    #closePopup {
+      position: absolute;
+      top:10px;
+      right:15px;
+      cursor: pointer;
+      font-size:20px;
+      font-weight:bold;
+    }
+    #popup h3 { color:#ff7a59; }
+
+    /* Responsive */
+    @media (max-width:768px) {
+      nav ul { float:none; text-align:center; }
+      .menu-items, .special-grid, .review-grid { flex-direction:column; align-items:center; }
+      .item, .special, .review { width:80%; }
+      .hero h2 { font-size:36px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="container">
+    <h1 class="logo">Café Bliss</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#specials">Specials</a></li>
+        <li><a href="#order">Order</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+  <div class="overlay"></div>
+  <div class="container hero-content">
+    <h2>Welcome to Café Bliss</h2>
+    <p>Freshly brewed happiness in every cup ☕</p>
+    <button class="btn popup-trigger" data-message="Thanks for visiting Café Bliss!">Explore Menu</button>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about">
+  <div class="overlay"></div>
+  <div class="container">
+    <h2>About Our Café</h2>
+    <p>Café Bliss is a cozy corner where passion meets coffee. We serve freshly roasted coffee, baked goodies, and create a space for friends to gather and relax.</p>
+    <button class="btn popup-trigger" data-message="Hope you enjoyed learning about us!">Learn More</button>
+  </div>
+</section>
+
+<!-- Menu Section -->
+<section id="menu" class="menu">
+  <div class="overlay"></div>
+  <div class="container">
+    <h2>Our Menu</h2>
+    <div class="menu-items">
+      <div class="item">
+        <h3>Espresso</h3>
+        <p>Strong, rich, and aromatic.</p>
+        <span>$3.00</span>
+      </div>
+      <div class="item">
+        <h3>Cappuccino</h3>
+        <p>Creamy milk froth meets bold espresso.</p>
+        <span>$4.50</span>
+      </div>
+      <div class="item">
+        <h3>Blueberry Muffin</h3>
+        <p>Freshly baked goodness every morning.</p>
+        <span>$2.50</span>
+      </div>
+      <div class="item">
+        <h3>Sandwich Combo</h3>
+        <p>Grilled perfection with a cup of coffee.</p>
+        <span>$6.99</span>
+      </div>
+    </div>
+    <button class="btn popup-trigger" data-message="Your order has been placed successfully!">Order Online</button>
+  </div>
+</section>
+
+<!-- Daily Specials Section -->
+<section id="specials" class="specials">
+  <div class="overlay"></div>
+  <div class="container">
+    <h2>Today's Specials</h2>
+    <div class="special-grid">
+      <div class="special">
+        <h3>Mocha Delight</h3>
+        <p>Espresso blended with cocoa & milk foam.</p>
+      </div>
+      <div class="special">
+        <h3>Caramel Latte</h3>
+        <p>Sweet caramel layers with smooth espresso.</p>
+      </div>
+      <div class="special">
+        <h3>Vegan Wrap</h3>
+        <p>Light, healthy, and full of flavor.</p>
+      </div>
+    </div>
+    <button class="btn popup-trigger" data-message="Specials added to your order!">Order Specials</button>
+  </div>
+</section>
+
+<!-- Reservation Section -->
+<section id="order" class="reservation">
+  <div class="overlay"></div>
+  <div class="container">
+    <h2>Reserve a Table</h2>
+    <form id="reservationForm">
+      <input type="text" placeholder="Your Name" required/>
+      <input type="email" placeholder="Email Address" required/>
+      <input type="number" placeholder="No. of People" required/>
+      <input type="datetime-local" required/>
+      <button type="submit" class="btn">Reserve Now</button>
+    </form>
+  </div>
+</section>
+
+<!-- Customer Reviews Section -->
+<section id="reviews" class="reviews">
+  <div class="overlay"></div>
+  <div class="container">
+    <h2>Customer Reviews</h2>
+    <div class="review-grid">
+      <div class="review">
+        <p>“The cappuccino here is amazing!”</p>
+        <h4>- Emma W.</h4>
+      </div>
+      <div class="review">
+        <p>“Cozy atmosphere and friendly staff.”</p>
+        <h4>- Alex R.</h4>
+      </div>
+      <div class="review">
+        <p>“Fresh pastries every morning, love it!”</p>
+        <h4>- Mia K.</h4>
+      </div>
+    </div>
+    <button class="btn popup-trigger" data-message="Thanks for reading our reviews!">Leave a Review</button>
+  </div>
+</section>
+
+<!-- Location and Hours Section -->
+<section id="contact" class="location">
+  <div class="overlay"></div>
+  <div class="container">
+    <h2>Location & Hours</h2>
+    <p>123 Brew Street, Coffee Town</p>
+    <p>Mon-Fri: 7am - 8pm | Sat-Sun: 8am - 6pm</p>
+    <button class="btn popup-trigger" data-message="We hope to see you soon!">Get Directions</button>
+  </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter">
+  <div class="overlay"></div>
+  <div class="container">
+    <h2>Join Our Coffee Club</h2>
+    <p>Subscribe for exclusive offers and updates!</p>
+    <form id="newsletterForm">
+      <input type="email" placeholder="Enter your email" required/>
+      <button type="submit" class="btn">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Café Bliss | 123 Brew Street | Phone: (123) 456-7890 | @cafebliss</p>
+  </div>
+</footer>
+
+<!-- Popup Modal -->
+<div id="popup">
+  <div class="popup-content">
+    <span id="closePopup">&times;</span>
+    <h3 id="popupTitle">Action Completed!</h3>
+    <p id="popupMessage">Your action was successful!</p>
+  </div>
+</div>
+
+<script>
+  // Reservation Form Popup
+  const reservationForm = document.getElementById('reservationForm');
+  const newsletterForm = document.getElementById('newsletterForm');
+  const popup = document.getElementById('popup');
+  const close = document.getElementById('closePopup');
+  const popupTitle = document.getElementById('popupTitle');
+  const popupMessage = document.getElementById('popupMessage');
+
+  function showPopup(title, message) {
+    popupTitle.textContent = title;
+    popupMessage.textContent = message;
+    popup.style.display = 'flex';
+  }
+
+  // Reservation Form
+  reservationForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    showPopup('Reservation Confirmed!', 'Thank you for booking with Café Bliss!');
+    reservationForm.reset();
+  });
+
+  // Newsletter Form
+  newsletterForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    showPopup('Subscribed!', 'You have joined our Coffee Club!');
+    newsletterForm.reset();
+  });
+
+  // Buttons with popup messages
+  document.querySelectorAll('.popup-trigger').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const msg = btn.getAttribute('data-message');
+      showPopup('Success!', msg);
+    });
+  });
+
+  // Close popup
+  close.addEventListener('click', function(){ popup.style.display='none'; });
+  window.addEventListener('click', function(e){ if(e.target === popup) popup.style.display='none'; });
+</script>
+
+</body>
+</html>
